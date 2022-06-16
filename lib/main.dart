@@ -1,43 +1,22 @@
 import 'package:flutter/material.dart';
 
-class Counter extends StatefulWidget {
-  const Counter({Key? key}) : super(key: key);
+void main() => runApp(const MyApp());
 
-  @override
-  State<Counter> createState() => _CounterState();
-}
-
-class _CounterState extends State<Counter> {
-  int _counter = 0;
-
-  void _increment() {
-    setState(() {
-      _counter++;
-    });
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        ElevatedButton(
-          onPressed: _increment,
-          child: const Text('Increment'),
+    return MaterialApp(
+      title: 'Flutter layout demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Flutter layout demo'),
         ),
-        const SizedBox(width: 16),
-        Text('Count: $_counter'),
-      ],
+        body: const Center(
+          child: Text('Hello World'),
+        ),
+      ),
     );
   }
-}
-
-void main() {
-  runApp(const MaterialApp(
-    home: Scaffold(
-      body: Center(
-        child: Counter(),
-      ),
-    ),
-  ));
 }
