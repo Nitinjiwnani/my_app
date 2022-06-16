@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
 
-class MyButton extends StatelessWidget {
-  const MyButton({Key? key}) : super(key: key);
+class Counter extends StatefulWidget {
+  const Counter({Key? key}) : super(key: key);
+
+  @override
+  State<Counter> createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int _counter = 0;
+
+  void _increment() {
+    setState(() {
+      _counter++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        print('MyButton was tapped!');
-      },
-      child: Container(
-        height: 50.0,
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          color: Colors.lightGreen[500],
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        ElevatedButton(
+          onPressed: _increment,
+          child: const Text('Increment'),
         ),
-        child: const Center(
-          child: Text('Engage'),
-        ),
-      ),
+        const SizedBox(width: 16),
+        Text('Count: $_counter'),
+      ],
     );
   }
 }
@@ -29,7 +36,7 @@ void main() {
   runApp(const MaterialApp(
     home: Scaffold(
       body: Center(
-        child: MyButton(),
+        child: Counter(),
       ),
     ),
   ));
