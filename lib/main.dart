@@ -115,7 +115,7 @@ class MyApp extends StatelessWidget {
     );
 
     final leftColumn = Container(
-      padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
+      padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
       child: Column(
         children: [
           titleText,
