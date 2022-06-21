@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
 void main() {
-  debugPaintSizeEnabled = false; // Set to true for visual layout
+  debugPaintSizeEnabled = true; // Set to true for visual layout
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  static const showGrid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -17,41 +19,52 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Flutter Layout Demo'),
         ),
-        body: Center(child: _buildImageColumn()),
+        body: Center(child: showGrid ? _buildGrid() : _buildList()),
       ),
     );
   }
 
-  Widget _buildImageColumn() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.black26,
-      ),
-      child: Column(
-        children: [
-          _buildImageRow(1),
-          _buildImageRow(3),
-         ],
-        ),
+  Widget _buildGrid() => GridView.extent(
+        maxCrossAxisExtent: 150,
+        padding: const EdgeInsets.all(4),
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        children: _buildGridTileList(30),
+      );
+
+  List<Container> _buildGridTileList(int count) => List.generate(
+      count, (i) => Container(child: Image.asset('assets/images/pic$i.jpg')));
+
+  Widget _buildList() {
+    return ListView(
+      children: [
+        _tile('heheeheh', '32 W dcsd ves', Icons.theaters),
+        _tile('heheeheh', '32 W dcsd ves', Icons.theaters),
+        _tile('heheeheh', '32 W dcsd ves', Icons.theaters),
+        _tile('heheeheh', '32 W dcsd ves', Icons.theaters),
+        _tile('heheeheh', '32 W dcsd ves', Icons.theaters),
+        _tile('heheeheh', '32 W dcsd ves', Icons.theaters),
+        const Divider(),
+        _tile('heheeheh', '32 W dcsd ves', Icons.restaurant),
+        _tile('heheeheh', '32 W dcsd ves', Icons.restaurant),
+        _tile('heheeheh', '32 W dcsd ves', Icons.restaurant),
+        _tile('heheeheh', '32 W dcsd ves', Icons.restaurant),
+      ],
     );
   }
 
-  Widget _buildDecoratedImage(int imageIndex) => Expanded(
-    child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(width: 10, color: Colors.black38),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
+  ListTile _tile(String title, String subtitle, IconData icon) {
+    return ListTile(
+      title: Text(title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+          )),
+      subtitle: Text(subtitle),
+      leading: Icon(
+        icon,
+        color: Colors.blue[500],
       ),
-      margin: const EdgeInsets.all(4),
-      child: Image.asset('assets/images/pic1.jpg'),
-    ),
-  );
-
-  Widget _buildImageRow(int imageIndex) => Row(
-    children: [
-      _buildDecoratedImage(imageIndex),
-      _buildDecoratedImage(imageIndex + 1),
-    ],
-  );
+    );
+  }
 }
-  
